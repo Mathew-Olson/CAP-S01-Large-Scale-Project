@@ -1,24 +1,28 @@
-
+from os import path
 import pygame
 import random
-from MagicNumbers import Basic
-from MagicNumbers import Class
-
+import Basic
+import Class
+import sys
+import time
 
 # initialize pygame and create window
 pygame.init()
 pygame.mixer.init()
 screen = pygame.display.set_mode((Basic.WIDTH, Basic.HEIGHT))
-pygame.display.set_caption("")
+pygame.display.set_caption("Fappy Bird")
 clock = pygame.time.Clock()
+
+#game graphics
+bird_image = pygame.image.load(path.join(Basic.img_dir, 'bird.png')).convert()
+pipe_top = pygame.image.load(path.join(Basic.img_dir, 'pipe_top.png')).convert()
+pipe_bot = pygame.image.load(path.join(Basic.img_dir, 'pipe_top.png')).convert()
 
 #all sprites
 all_sprites = pygame.sprite.Group()
-player = Class.Player()
+player = Class.Player(bird_image)
 all_sprites.add(player)
 
-#game graphics
-bird_image = pygame.image.load(path.join(img_dir, 'bird.png')).convert()
 
 # Game loop
 running = True
