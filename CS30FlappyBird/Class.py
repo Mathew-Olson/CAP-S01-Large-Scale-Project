@@ -18,15 +18,43 @@ class Player(pygame.sprite.Sprite):
         pygame.sprite.Sprite.__init__(self)
         self.image = pygame.transform.scale(bird_image, (70, 58))
         self.rect = self.image.get_rect()
-        self.rect.center = (Basic.HEIGHT/2, Basic.HEIGHT/2)
-        self.velocity = 0
+        self.radius = 20
+        self.image.set_colorkey(Basic.PINK)
+        #pygame.draw.circle(self.image, Basic.RED, self.rect.center, self.radius)
+        self.rect.centerx = 100
+        self.rect.bottom = Basic.HEIGHT /2
+        self.speedy = 0
+        
         
     def update(self):
-        self.rect.x += self.speedx
-        
-        if self.rect.bottom > screen_height:
+        self.speedy = 0
+        keystate = pygame.key.get_pressed()
+        if keystate[pygame.K_UP]:
+            self.speedy = -8
+            #print(self.rect.bottom)
+        if keystate[pygame.K_DOWN]:
+            self.speedy = 8
+            #print(self.rect.bottom)
+        self.rect.y += self.speedy
+        if self.rect.bottom > Basic.HEIGHT:
             self.rect.bottom = Basic.HEIGHT
-            self.velocity = 0
+        if self.rect.top < 0:
+            self.rect.top  = 0
+
+
+
+class Top_Pipe(pygame.sprite.Sprite):
+    def __init__(self, top_pipe_image):
+        pygame.sprite.Sprite.__init__(self)
+        self.image = top_pipe_image
+        self.rect = self.image.get_rect()
+        self.rect.x = Basic.WIDTH - 100
+        self.speedx = Basic.GAME_SPEED
+        self.rect.y = -150
+    
+    def update(self):
+        self.rect.x += self.speedx * -1
+            
         
 
     
